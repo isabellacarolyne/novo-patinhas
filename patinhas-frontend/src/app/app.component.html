@@ -1,0 +1,27 @@
+<div class="d-flex flex-column h-100">
+  @if(exibir_titulo) {
+  <mat-toolbar class="d-flex justify-content-between">
+    <img src="/assets/logo.png" alt="" class="logo" />
+    {{ pagina }}
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" color="accent">
+      <mat-icon>person</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="editarUsuario()">
+        <mat-icon>edit</mat-icon>
+        <span>Editar usuário</span>
+      </button>
+      <button mat-menu-item (click)="sair()">
+        <mat-icon>logout</mat-icon>
+        <span>Sair</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+  }
+
+  <div class="flex-grow-1 overflow-hidden">
+    <router-outlet></router-outlet>
+  </div>
+</div>

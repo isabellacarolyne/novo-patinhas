@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>Editar pet</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="row" [formGroup]="formularioCadastro">
+    <mat-form-field class="campo">
+      <mat-label>Nome Completo</mat-label>
+      <input type="text" matInput formControlName="nome" />
+
+      @if (formularioCadastro.get('nome')?.hasError('nome')) {
+      <mat-error>Informe o seu nome completo</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="campo">
+      <mat-label>CPF</mat-label>
+      <input
+        type="number"
+        matInput
+        formControlName="cpf"
+        max="99999999999"
+        maxlength="11"
+      />
+
+      @if (formularioCadastro.get('cpf')?.hasError('cpf')) {
+      <mat-error>Informe um CPF válido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="campo">
+      <mat-label>E-mail</mat-label>
+      <input type="email" matInput formControlName="email" />
+
+      @if (formularioCadastro.get('email')?.hasError('email')) {
+      <mat-error>Informe um e-mail válido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="campo">
+      <mat-label>Telefone</mat-label>
+      <input type="phone" matInput formControlName="telefone" maxlength="11" />
+      @if (!formularioCadastro.get('telefone')?.valid){
+      <mat-error>Informe um telefone válido (apenas números) </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="campo">
+      <mat-label>Senha</mat-label>
+      <input type="password" matInput formControlName="senha" />
+      @if (!formularioCadastro.get('senha')?.valid){
+      <mat-error>Informe uma senha válida</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-slide-toggle
+      >Deseja receber notificações sobre os procedimentos
+      marcados?</mat-slide-toggle
+    >
+
+    <button mat-stroked-button color="primary" (click)="deletarUsuario()">
+      Deletar o usuário
+    </button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="!formularioCadastro.valid"
+    (click)="editarUsuario()"
+  >
+    Salvar edição
+  </button>
+</mat-dialog-actions>

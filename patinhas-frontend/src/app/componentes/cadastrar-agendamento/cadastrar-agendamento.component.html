@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>Fazer um novo agendamento</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="formulario-login row" [formGroup]="formularioAgendamento">
+    <mat-form-field class="campo">
+      <mat-label>Data do agendamento</mat-label>
+      <input
+        type="date"
+        matInput
+        formControlName="dt_inicial"
+        (change)="recalcularDias()"
+      />
+
+      @if (formularioAgendamento.get('dt_inicial')?.hasError('dt_inicial')) {
+      <mat-error>Informe a data do agendamento</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="example-chip-list">
+      <mat-label>Serviços</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Seleção de serviços">
+        @for (servico of servicosSelecionados; track servico) {
+        <mat-chip-row (removed)="remove(servico)">
+          {{ servico.nome }}
+          <button matChipRemove [attr.aria-label]="'remover ' + servico.nome">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+      </mat-chip-grid>
+      <input
+        placeholder="Buscar serviço"
+        #servicoInput
+        [formControl]="servicosCtrl"
+        [matChipInputFor]="chipGrid"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="selected($event)"
+      >
+        @for (servico of servicosFiltrados | async; track servico) {
+        <mat-option [value]="servico.id">{{ servico.nome }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    @if(tem_hospedagem) {
+    <mat-form-field class="campo">
+      <mat-label>Data final para a hospedagem</mat-label>
+      <input
+        type="date"
+        matInput
+        formControlName="dt_final"
+        (change)="recalcularDias()"
+      />
+
+      @if (formularioAgendamento.get('dt_final')?.hasError('dt_final')) {
+      <mat-error>Informe a data final para a hospedagem</mat-error>
+      }
+    </mat-form-field>
+    <mat-hint>Você selecionou {{ qtde_dias }} dias de hospedagem</mat-hint>
+    }
+    <mat-form-field class="campo">
+      <mat-label>Observacao</mat-label>
+      <input type="text" matInput formControlName="observacao" />
+    </mat-form-field>
+    <mat-form-field class="campo">
+      <mat-label>Valor total</mat-label>
+      <input
+        type="text"
+        matInput
+        disabled
+        [value]="'R$ ' + (valor_total | number : '1.2-2')"
+      />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="!formularioAgendamento.valid"
+    (click)="cadastrarAgendamento()"
+  >
+    Cadastrar
+  </button>
+</mat-dialog-actions>

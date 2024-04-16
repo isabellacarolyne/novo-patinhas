@@ -1,0 +1,32 @@
+.pet {
+  border: 1px solid #cac4d0;
+  border-radius: 10px;
+
+  .texto {
+    cursor: pointer;
+    flex-grow: 1;
+  }
+
+  .inicial {
+    background-color: #6750a4;
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 1.15rem;
+  }
+
+  .detalhes {
+    font-size: 0.9rem !important;
+    width: 100%;
+    overflow: auto;
+  }
+}
+
+.ativo {
+  background-color: #e8def8;
+}

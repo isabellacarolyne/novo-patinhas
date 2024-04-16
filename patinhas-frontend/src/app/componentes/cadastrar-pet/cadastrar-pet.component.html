@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>Cadastrar pet</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="formulario-login row" [formGroup]="formularioPet">
+    <mat-form-field class="campo">
+      <mat-label>Nome</mat-label>
+      <input type="text" matInput formControlName="nome" />
+
+      @if (formularioPet.get('nome')?.hasError('nome')) {
+      <mat-error>Informe o nome do pet</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="campo">
+      <mat-label>Data de nascimento</mat-label>
+      <input type="date" matInput formControlName="dt_nascimento" />
+
+      @if (formularioPet.get('dt_nascimento')?.hasError('dt_nascimento')) {
+      <mat-error>Informe a data de nascimento do pet</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Espécie</mat-label>
+      <mat-select
+        formControlName="especie"
+        (valueChange)="listarRacaPorEspecie($event)"
+      >
+        @for(especie of especies; track especie.id) {
+        <mat-option [value]="especie.id">{{ especie.especie }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    @if(formularioPet.get('especie')?.valid && racas.length > 0) {
+
+    <mat-form-field>
+      <mat-label>Raça</mat-label>
+      <mat-select formControlName="id_raca">
+        @for(raca of racas; track raca.id) {
+        <mat-option [value]="raca.id">{{ raca.raca }}</mat-option>
+
+        }
+      </mat-select>
+    </mat-form-field>
+    }
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="!formularioPet.valid"
+    (click)="cadastrarPet()"
+  >
+    Cadastrar
+  </button>
+</mat-dialog-actions>

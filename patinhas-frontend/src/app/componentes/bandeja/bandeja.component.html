@@ -1,0 +1,20 @@
+<div class="bandeja d-flex flex-column">
+  <div class="barra-titulo w-100 justify-content-between p-3">
+    <div class="titulo-container">
+      @if(temVoltar){
+      <div class="voltar"></div>
+      }
+      <div class="titulo">{{ titulo }}</div>
+    </div>
+
+    <div class="acao">
+      <button mat-flat-button extended color="accent" (click)="dispararAcao()">
+        <mat-icon>add</mat-icon>
+        {{ nomeAcao }}
+      </button>
+    </div>
+  </div>
+  <div class="conteudo p-3 flex-grow-1 d-flex flex-column gap-3">
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div
+  class="pet d-flex gap-3 p-3 align-items-center justify-content-between"
+  [ngClass]="{ ativo: ativo }"
+>
+  <div class="texto d-flex gap-3 flex-1" (click)="enviarAtivarPet()">
+    <div class="inicial">{{ inicial }}</div>
+    <div class="informacoes">
+      <div class="nome">{{ pet.nome }}</div>
+      <div class="detalhes">
+        <mat-chip-listbox>
+          <mat-chip>{{ pet.especie }}</mat-chip>
+          <mat-chip>{{ pet.raca }}</mat-chip>
+          <mat-chip color="accent">{{
+            pet.dt_nascimento | date : "dd/MM/YYYY"
+          }}</mat-chip>
+        </mat-chip-listbox>
+      </div>
+    </div>
+  </div>
+  <div class="acoes d-flex gap-3">
+    <button
+      mat-icon-button
+      extended
+      color="primary"
+      matTooltip="Deletar"
+      (click)="enviarDeletar()"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      extended
+      color="primary"
+      matTooltip="Editar"
+      (click)="enviarEditar()"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.bandeja {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fef7ff;
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
+  max-height: 100%;
+  .barra-titulo {
+    background-color: #f7f2fa;
+    display: flex;
+    align-items: center;
+  }
+
+  .conteudo {
+    overflow: auto;
+    max-height: 100%;
+  }
+}

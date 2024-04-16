@@ -1,0 +1,89 @@
+<div class="agendamento d-flex flex-column gap-3 p-3">
+  <div class="datas-status d-flex justify-content-between">
+    <div class="datas-preco d-flex gap-3">
+      <mat-chip-listbox aria-label="Dog selection">
+        <span class="datas">
+          <mat-chip class="data">
+            {{ agendamento.dt_inicial | date : "dd/MM/YYYY" }}
+          </mat-chip>
+          @if(agendamento.dt_final && agendamento.dt_final != null) {
+          <span class="separator">até</span>
+          <mat-chip class="data">
+            {{ agendamento.dt_final | date : "dd/MM/YYYY" }}
+          </mat-chip>
+
+          }
+        </span>
+      </mat-chip-listbox>
+
+      <button mat-flat-button extended color="primary" disabled>
+        R$ {{ agendamento.valor_total }}
+      </button>
+    </div>
+
+    @if(agendamento.status == 'Agendado' || agendamento.status == 'agendado') {
+    <div class="acoes">
+      <button
+        mat-icon-button
+        extended
+        color="accent"
+        matTooltip="Marcar como realizado"
+        (click)="enviarAtualizarStatus('finalizado')"
+      >
+        <mat-icon>check</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        extended
+        color="accent"
+        matTooltip="Marcar como NÃO realizado"
+        (click)="enviarAtualizarStatus('nao_realizado')"
+      >
+        <mat-icon>block</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        extended
+        color="accent"
+        matTooltip="Cancelar o agendamento"
+        (click)="enviarAtualizarStatus('cancelado')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    } @else { @if(agendamento.status == 'Finalizado' || agendamento.status ==
+    'finalizado') {
+    <button mat-flat-button extended color="accent" disabled>
+      <mat-icon>check</mat-icon>
+      Realizado</button
+    >} @if(agendamento.status == 'Não realizado' || agendamento.status ==
+    'nao_realizado') {
+    <button mat-flat-button extended color="accent" disabled>
+      <mat-icon>block</mat-icon>
+      Não realizado</button
+    >} @if(agendamento.status == 'Cancelado' || agendamento.status ==
+    'cancelado') {
+    <button mat-flat-button extended color="accent" disabled>
+      <mat-icon>close</mat-icon>
+      Cancelado</button
+    >} }
+  </div>
+
+  <div class="w-100 p-3">
+    <mat-form-field class="w-100">
+      <mat-label>Serviços selecionados</mat-label>
+      <mat-chip-grid #chipGrid>
+        @for(servico of agendamento.id_servico; track servico) {
+        <mat-chip-row>{{ servico.nome }}</mat-chip-row>
+
+        } @empty { Não foi possível listar os serviços desse agendamento }
+        <input style="display: none" [matChipInputFor]="chipGrid" />
+      </mat-chip-grid>
+    </mat-form-field>
+  </div>
+
+  <div class="observacao">
+    {{ agendamento.observacao }}
+  </div>
+</div>
