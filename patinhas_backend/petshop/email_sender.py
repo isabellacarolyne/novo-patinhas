@@ -6,8 +6,8 @@ class EmailSender:
     def __init__(self, ):
         self.smtp_server = 'smtp.gmail.com'
         self.port = 587 
-        self.sender_email = 'app.patinhas@gmail.com'
-        self.password = 'gymc rshk tvqy daro'
+        self.sender_email = 'MUDAR EMAIL'
+        self.password = 'MUDAR SENHA'
 
     def send_email(self, receiver_email, subject, message):
         msg = MIMEMultipart()
