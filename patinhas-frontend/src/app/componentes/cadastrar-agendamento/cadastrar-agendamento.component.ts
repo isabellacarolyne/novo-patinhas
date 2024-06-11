@@ -90,7 +90,7 @@ export class CadastrarAgendamentoComponent {
     private servico: AgendamentoService,
     private dialogo: MatDialogRef<CadastrarAgendamentoComponent>,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.listarServicos();
@@ -108,8 +108,11 @@ export class CadastrarAgendamentoComponent {
     this.servico.cadastrarAgendamento(agendamento).then(
       (data) => {
         this._snackBar.open('Agendamento criado com sucesso', 'Fechar', {
+          duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['mat-success']
+
         });
         this.dialogo.close(true);
       },
@@ -118,8 +121,11 @@ export class CadastrarAgendamentoComponent {
           'Erro ao criar o agendamento. Verifique as informações e tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }
@@ -169,8 +175,11 @@ export class CadastrarAgendamentoComponent {
           'Erro ao recuperar informações de serviços disponíveis',
           'Splash',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }

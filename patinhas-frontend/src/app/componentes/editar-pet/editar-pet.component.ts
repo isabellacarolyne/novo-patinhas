@@ -59,7 +59,7 @@ export class EditarPetComponent {
     private servico: PetService,
     private dialogo: MatDialogRef<EditarPetComponent>,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     let data_formatada = this.data.dt_nascimento.toISOString().split('T')[0];
@@ -86,6 +86,8 @@ export class EditarPetComponent {
         this._snackBar.open('Pet editado com sucesso!', 'Fechar', {
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['mat-success']
+
         });
         this.dialogo.close();
       },
@@ -94,8 +96,11 @@ export class EditarPetComponent {
           'Erro ao editar o pet. Verifique as informações e tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }
@@ -138,8 +143,11 @@ export class EditarPetComponent {
           'Erro ao recuperar informações de espécies. Tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }
@@ -158,8 +166,11 @@ export class EditarPetComponent {
             'Erro ao recuperar informações de raças. Tente novamente',
             'Fechar',
             {
+              duration: 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
+              panelClass: ['mat-error']
+
             }
           );
         }

@@ -19,13 +19,7 @@
 
       <mat-form-field class="campo">
         <mat-label>CPF</mat-label>
-        <input
-          type="number"
-          matInput
-          formControlName="cpf"
-          max="99999999999"
-          maxlength="11"
-        />
+        <input type="number" matInput formControlName="cpf" max="99999999999" />
 
         @if (formularioCadastro.get('cpf')?.hasError('cpf')) {
         <mat-error>Informe um CPF válido</mat-error>
@@ -62,7 +56,7 @@
         }
       </mat-form-field>
 
-      <mat-slide-toggle
+      <mat-slide-toggle formControlName="receber_notificacoes"
         >Deseja receber notificações sobre os procedimentos
         marcados?</mat-slide-toggle
       >

@@ -8,6 +8,7 @@ class Usuario(models.Model):
     telefone = models.CharField(max_length=11)
     dt_criacao = models.DateTimeField(auto_now_add=True,)
     dt_atualizacao = models.DateTimeField(auto_now=True,)
+    receber_notificacoes = models.BooleanField(default=True)
     
     def __str__(self):
         return self.nome

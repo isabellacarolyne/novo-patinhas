@@ -46,14 +46,14 @@ export class CadastroComponent {
       Validators.maxLength(11),
     ]),
     senha: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    receber_email: new FormControl(false, [Validators.required]),
+    receber_notificacoes: new FormControl(false, [Validators.required]),
   });
 
   constructor(
     private service: UsuarioService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   cadastrar() {
     if (this.formularioCadastro.valid) {
@@ -64,8 +64,11 @@ export class CadastroComponent {
             'Usuário cadastrado com sucesso. Agora é só fazer o login ;)',
             'Fechar',
             {
+              duration: 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
+              panelClass: ['mat-success']
+
             }
           );
           this.router.navigate(['/login']);
@@ -75,8 +78,11 @@ export class CadastroComponent {
             'Erro ao cadastrar o usuário. Verifique as informações e tente novamente',
             'Fechar',
             {
+              duration: 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
+              panelClass: ['mat-error']
+
             }
           );
         }
@@ -86,8 +92,11 @@ export class CadastroComponent {
         'Erro ao cadastrar o usuário. Verifique as informações e tente novamente',
         'Fechar',
         {
+          duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['mat-error']
+
         }
       );
     }

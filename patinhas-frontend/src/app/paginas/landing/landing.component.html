@@ -1,0 +1,158 @@
+<div class="container h-100">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid navbar-patinhas">
+      <a class="navbar-brand" href="#"
+        ><img
+          class="logo-patinhas"
+          src="./assets/imgs/logo.png"
+          alt="Logo patinhas"
+      /></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page">Início</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              (click)="irServicos()"
+              >Serviços</a
+            >
+          </li>
+        </ul>
+        <button mat-flat-button extended color="accent" (click)="irLogin()">
+          Login
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="row inicio" id="inicio">
+    <div class="col-md-12 col-lg-6 info pt-5 pb-5">
+      <h1 class="titulo mb-3">
+        O centro de cuidados<br />
+        para o seu pet
+      </h1>
+      <p class="mt-5">
+        Cadastre já o seu pet para podermos recebê-lo com muito carinho e lhe
+        oferecer os serviços. Aqui ele será tratado como um membro da nossa
+        família de bichinhos.
+      </p>
+
+      <div class="especies mt-5">
+        <h5 class="titulo-especies">Nós podemos cuidar do seu:</h5>
+
+        <ul class="lista-especies">
+          <li>
+            <img src="assets/imgs/especies/cachorro.png" alt="Cachorro" />
+            <label>Cachorro</label>
+          </li>
+          <li>
+            <img src="assets/imgs/especies/gato.png" alt="Gato" />
+            <label>Gato</label>
+          </li>
+          <li>
+            <img src="./assets/imgs/especies/passaro.png" alt="Pássaro" />
+            <label>Pássaro</label>
+          </li>
+          <li>
+            <img src="./assets/imgs/especies/mamifero.png" alt="Mamífero" />
+            <label>Mamífero</label>
+          </li>
+          <li>
+            <img src="./assets/imgs/especies/reptil.png" alt="Réptil" />
+            <label>Réptil</label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="cadatro"></div>
+    </div>
+    <div class="col-md-12 col-lg-6 h-full">
+      <!-- <div class="img-barkground" id="imagem_aleatoria"></div> -->
+      <img class="img-barkground" src="./assets/imgs/backgrAUnd.png" alt="" />
+      <div class="img-barkground-md">
+        <img class="imagem" src="./assets/imgs/barkground_maubile.png" alt="" />
+      </div>
+    </div>
+  </section>
+  <section class="row pb-5" id="servicos">
+    <div class="col-12">
+      <h1 class="text-center">O que oferecemos ao seu pet</h1>
+      <h3 class="mt-3 text-center">
+        Nossos serviços são dedicados ao seu PET, oferecendo carinho e cuidado
+        especial para o bem-estar do seu amado companheiro. Venha fazer parte
+        dessa jornada repleta de amor e ternura pelos animais!
+      </h3>
+
+      <div class="row items-servicos mt-5 gap-1">
+        <div class="card card-item">
+          <img
+            src="./assets/imgs/servicos/hospedagem.png"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <p class="card-text">Hospedagem</p>
+          </div>
+        </div>
+
+        <div class="card card-item">
+          <img
+            src="./assets/imgs/servicos/banho_tosa.png"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <p class="card-text">Banho e tosa</p>
+          </div>
+        </div>
+
+        <div class="card card-item">
+          <img
+            src="./assets/imgs/servicos/vet.png"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <p class="card-text">Veterinário</p>
+          </div>
+        </div>
+
+        <div class="card card-item">
+          <img
+            src="./assets/imgs/servicos/vacina.png"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <p class="card-text">Vacina</p>
+          </div>
+        </div>
+
+        <div class="card card-item">
+          <img
+            src="./assets/imgs/servicos/adestramento.png"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <p class="card-text">Adestramento</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

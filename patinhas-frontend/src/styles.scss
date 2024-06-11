@@ -1,18 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
+@use "@angular/material" as mat;
+
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+  )
+);
+
 body {
-  height: 100%;
-  --mdc-typography-button-font-size: 0.9rem;
-}
-body {
-  margin: 0;
+  @include mat.all-component-themes($theme);
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+html {
+  height: 100%;
 }
 .row {
   --bs-gutter-x: 0 !important;
   --bs-gutter-y: 0;
 }
+
 .mat-mdc-chip-action-label {
   font-size: 0.9rem !important;
 }
+
+@include mat.core();
+@include mat.color-variants-backwards-compatibility($theme);
+
+.mat-success .mat-mdc-snackbar-surface {
+  background-color: #4caf50 !important;
+}
+
+.mat-mdc-snack-bar-action:not(:disabled) {
+  color: #fff !important;
+}
+
+.mat-error .mat-mdc-snackbar-surface {
+  background-color: #f44336 !important;
+}
+
+// html,
+// body {
+//   height: 100%;
+//   --mdc-typography-button-font-size: 0.9rem;
+// }
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+// }

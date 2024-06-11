@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
-import { HttpClientModule } from '@angular/common/http';
 import { UsuarioService } from './servicos/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditarUsuarioComponent } from './componentes/editar-usuario/editar-usuario.component';
@@ -27,7 +26,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    HttpClientModule,
   ],
   providers: [UsuarioService],
   templateUrl: './app.component.html',
@@ -37,6 +35,7 @@ export class AppComponent {
   title = 'patinhas-frontend';
   pagina = '';
   exibir_titulo = false;
+  esta_na_landing = false;
 
   constructor(
     private router: Router,
@@ -44,12 +43,13 @@ export class AppComponent {
     private usuarioService: UsuarioService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((ev: any) => {
+        this.esta_na_landing = ev['url'] == '/' || ev['url'] == '';
         this.exibir_titulo = ev['url'] != '/login' && ev['url'] != '/cadastro';
       });
   }
@@ -60,10 +60,8 @@ export class AppComponent {
   }
 
   editarUsuario() {
-    // const id_usuario = sessionStorage.getItem('id_usuario');
-    const id_usuario = '123';
+    const id_usuario = sessionStorage.getItem('id_usuario');
     if (id_usuario) {
-      const dialogRef = this.dialog.open(EditarUsuarioComponent);
       this.usuarioService.getUsuario(parseInt(id_usuario)).then(
         (data) => {
           const dialogRef = this.dialog.open(EditarUsuarioComponent, {
@@ -81,8 +79,11 @@ export class AppComponent {
             'Erro ao recuperar informações para editar o usuário',
             'Splash',
             {
+              duration: 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
+              panelClass: ['mat-error']
+
             }
           );
         }

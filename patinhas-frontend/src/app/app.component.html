@@ -1,3 +1,4 @@
+@if(!esta_na_landing) {
 <div class="d-flex flex-column h-100">
   @if(exibir_titulo) {
   <mat-toolbar class="d-flex justify-content-between">
@@ -25,3 +26,7 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+
+} @else {
+<router-outlet></router-outlet>
+}

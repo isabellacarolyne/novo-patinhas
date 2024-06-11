@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UsuarioService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   autenticarUsuario(email: string, senha: string): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -96,4 +96,5 @@ export interface Usuario {
   email: string;
   senha: string;
   telefone: string;
+  receber_notificacoes: boolean;
 }

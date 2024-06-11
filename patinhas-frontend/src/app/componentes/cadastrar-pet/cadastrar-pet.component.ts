@@ -59,7 +59,7 @@ export class CadastrarPetComponent {
     private servico: PetService,
     private dialogo: MatDialogRef<CadastrarPetComponent>,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     let id_usuario = sessionStorage.getItem('id_usuario');
@@ -75,8 +75,11 @@ export class CadastrarPetComponent {
     this.servico.cadastrarPet(pet).then(
       (data) => {
         this._snackBar.open('Pet cadastrado com sucesso', 'Fechar', {
+          duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['mat-success']
+
         });
         this.dialogo.close();
       },
@@ -85,8 +88,11 @@ export class CadastrarPetComponent {
           'Erro ao cadastrar o pet. Verifique as informações e tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }
@@ -103,8 +109,11 @@ export class CadastrarPetComponent {
           'Erro ao recuperar informações de espécies. Tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }
@@ -122,8 +131,11 @@ export class CadastrarPetComponent {
             'Erro ao recuperar informações de raças. Tente novamente',
             'Fechar',
             {
+              duration: 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
+              panelClass: ['mat-error']
+
             }
           );
         }

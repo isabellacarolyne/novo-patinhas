@@ -41,7 +41,7 @@ export class LoginComponent {
     private service: UsuarioService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   autenticar() {
     let dados: Autenticacao = this.formularioLogin.value as Autenticacao;
@@ -56,15 +56,18 @@ export class LoginComponent {
 
         sessionStorage.setItem('expira_em', t.toString());
 
-        this.router.navigate(['/']);
+        this.router.navigate(['/inicio']);
       },
       (error) => {
         this._snackBar.open(
           'Ocorreu um erro ao autenticar. Por favor, verifique o usuário e a senha digitados',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }

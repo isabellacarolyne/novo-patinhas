@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Editar pet</h2>
+<h2 mat-dialog-title>Editar Usuário</h2>
 <mat-dialog-content class="mat-typography">
   <form class="row" [formGroup]="formularioCadastro">
     <mat-form-field class="campo">
@@ -50,7 +50,7 @@
       }
     </mat-form-field>
 
-    <mat-slide-toggle
+    <mat-slide-toggle formControlName="receber_notificacoes" class="mb-4"
       >Deseja receber notificações sobre os procedimentos
       marcados?</mat-slide-toggle
     >

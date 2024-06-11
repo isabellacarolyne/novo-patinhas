@@ -9,7 +9,7 @@ class UsuarioSerializer(serializers.Serializer):
     telefone = serializers.CharField()
     dt_criacao = serializers.DateTimeField()
     dt_atualizacao = serializers.DateTimeField()
-    
+    receber_notificacoes = serializers.BooleanField()
         
 
 class PetSerializer(serializers.Serializer):

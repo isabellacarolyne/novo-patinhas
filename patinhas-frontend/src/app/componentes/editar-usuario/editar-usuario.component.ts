@@ -48,26 +48,27 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 })
 export class EditarUsuarioComponent {
   formularioCadastro = new FormGroup({
-    nome: new FormControl('Bochechela Bochechine Bochechins', [
+    nome: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
     ]),
-    cpf: new FormControl('00000000000', [
+    cpf: new FormControl('', [
       Validators.required,
       Validators.minLength(11),
     ]),
-    email: new FormControl('bochechuda@cabecao.com', [
+    email: new FormControl('', [
       Validators.required,
       Validators.email,
     ]),
-    telefone: new FormControl('999999999', [
+    telefone: new FormControl('', [
       Validators.required,
       Validators.minLength(9),
     ]),
-    senha: new FormControl('caebcagigante', [
+    senha: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
     ]),
+    receber_notificacoes: new FormControl(false),
   });
 
   constructor(
@@ -75,15 +76,18 @@ export class EditarUsuarioComponent {
     private dialogo: MatDialogRef<EditarUsuarioComponent>,
     private servico: UsuarioService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
-    // this.formularioCadastro.patchValue({
-    //   nome: this.data.nome,
-    //   cpf: this.data.cpf,
-    //   email: this.data.email,
-    //   telefone: this.data.telefone,
-    // });
+
+    console.log("data", this.data)
+    this.formularioCadastro.patchValue({
+      nome: this.data.nome,
+      cpf: this.data.cpf,
+      email: this.data.email,
+      telefone: this.data.telefone,
+      receber_notificacoes: this.data.receber_notificacoes,
+    });
   }
 
   editarUsuario() {
@@ -93,8 +97,11 @@ export class EditarUsuarioComponent {
     this.servico.editarUsuario(usuario).then(
       (data) => {
         this._snackBar.open('Usuário editado com sucesso', 'Fechar', {
+          duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['mat-success']
+
         });
         this.dialogo.close(false);
       },
@@ -103,8 +110,11 @@ export class EditarUsuarioComponent {
           'Erro ao editar o usuário. Verifique as informações e tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }
@@ -115,8 +125,11 @@ export class EditarUsuarioComponent {
     this.servico.deletarUsuario(this.data.id).then(
       (data) => {
         this._snackBar.open('Usuário deletado com sucesso', 'Fechar', {
+          duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['mat-success']
+
         });
         this.dialogo.close(true);
       },
@@ -125,8 +138,11 @@ export class EditarUsuarioComponent {
           'Erro ao deletar o usuário. Tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }

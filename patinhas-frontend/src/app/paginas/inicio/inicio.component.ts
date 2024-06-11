@@ -41,10 +41,10 @@ export class InicioComponent {
     private petService: PetService,
     private agendamentoService: AgendamentoService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
-    // this.verificarSessao();
+    this.verificarSessao();
     this.listarPets();
   }
 
@@ -63,8 +63,11 @@ export class InicioComponent {
           'Erro ao recuperar informações de agendamentos para o pet selecionado. Tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }
@@ -83,8 +86,11 @@ export class InicioComponent {
             'Erro ao recuperar informações de pets cadastrados. Tente novamente',
             'Fechar',
             {
+              duration: 2000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
+              panelClass: ['mat-error']
+
             }
           );
         }
@@ -114,8 +120,11 @@ export class InicioComponent {
     this.agendamentoService.atualizarStatusAgendamento(agendamento).then(
       (data) => {
         this._snackBar.open('Status atualizados com sucesso', 'Fechar', {
+          duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['mat-success']
+
         });
         if (this.petSelecionado) {
           this.listarAgendamentosPet(this.petSelecionado.id!);
@@ -126,8 +135,11 @@ export class InicioComponent {
           'Erro ao atualizar os status para o agendamento. Tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }
@@ -157,8 +169,11 @@ export class InicioComponent {
     this.petService.deletarPet(pet).then(
       (data) => {
         this._snackBar.open('Pet deletado com  sucesso', 'Fechar', {
+          duration: 2000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['mat-success']
+
         });
         this.listarPets();
       },
@@ -167,8 +182,11 @@ export class InicioComponent {
           'Erro ao deletar o pet. Tente novamente',
           'Fechar',
           {
+            duration: 2000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['mat-error']
+
           }
         );
       }

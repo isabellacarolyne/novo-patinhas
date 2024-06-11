@@ -8,9 +8,9 @@ from .models import Usuario, Pet, Raca, Especie,Agendamento, Servico
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 from dateutil import parser
-# Create your views here.
+from .email_sender import EmailSender
 class UsuarioView(APIView):
-
+    envio_email = EmailSender()
     permission_classes = [permissions.AllowAny]
     
     def get(self, request, *args, **kwargs):
@@ -32,7 +32,8 @@ class UsuarioView(APIView):
                 "email": request.data['email'],
                 "telefone": request.data['telefone'],
                 "cpf": request.data['cpf'],
-                "senha": request.data['senha']
+                "senha": request.data['senha'],
+                "receber_notificacoes": request.data['receber_notificacoes']
             }
             novo_usuario_db = Usuario.objects.create(**dados)
             novo_usuario_db.save()
@@ -43,6 +44,13 @@ class UsuarioView(APIView):
                 novo_usuario.save()
                 
                 if novo_usuario is not None:
+                    if dados['receber_notificacoes']:
+                        email_usuario = dados['email']
+                        assunto = 'Seu usuário foi criado com sucesso!'
+                        mensagem = 'Olá, '+dados['nome']+'! Seu usuário foi criado com sucesso. Aproveite nossos serviços.'
+
+                    self.envio_email.send_email(email_usuario, assunto, mensagem)
+
                     return Response({"mensagem":"Usuário cadastrado com sucesso!", "status": "sucesso", "detalhes": usuario_criado}, status=200)
             
             return Response({"mensagem":"Erro ao criar usuário, por favor, verifique os dados", "status": "erro", "detalhes": usuario_criado}, status=400)
@@ -57,7 +65,8 @@ class UsuarioView(APIView):
                 "email": request.data['email'],
                 "telefone": request.data['telefone'],
                 "cpf": request.data['cpf'],
-                "senha": request.data['senha']
+                "senha": request.data['senha'],
+                "receber_notificacoes": request.data['receber_notificacoes']
             }
             usuario_atualizar = Usuario.objects.filter(id=id)
             qtde_atualizados = usuario_atualizar.update(**dados)
@@ -77,19 +86,20 @@ class UsuarioView(APIView):
     def delete(self, request, *args, **kwargs):
         try:
             id = request.query_params.get("usuario_id")
-      
             usuario = Usuario.objects.filter(id=id)
-            
             usuario_dados = Usuario.objects.filter(id=id).first()
         
             usuario_serializer = UsuarioSerializer(usuario_dados, many=False).data
-      
             usuario_autenticacao =  User.objects.get(username=usuario_serializer['email'])
-           
-          
-            usuario_autenticacao.delete()
+            
+            if(usuario_serializer['receber_notificacoes']):
+                email_usuario = usuario_serializer['email']
+                assunto = 'Seu usuário foi deletado com sucesso!'
+                mensagem = 'Olá, '+usuario_serializer['nome']+'! Ficamos tristes em ver você partir. Esperamos que volte em breve.'
             usuario.delete()
+            usuario_autenticacao.delete()
 
+            self.envio_email.send_email(email_usuario, assunto, mensagem)
 
             
             return Response({'mensagem': 'O usuário foi deletado com sucesso!', 'status':  'sucesso', 'detalhes': id}, status=200)
@@ -233,7 +243,7 @@ class ServicosView(APIView):
         
         
 class AgendamentoView(APIView):
-    
+    envio_email = EmailSender()
     def get(self, request, *args, **kwargs):
         try:
             id_pet = request.query_params.get("id_pet")
@@ -286,7 +296,19 @@ class AgendamentoView(APIView):
             }
 
             novo_agendamento = Agendamento.objects.create(**dados)
-
+            if pet.id_usuario.receber_notificacoes:
+                email_usuario = pet.id_usuario.email
+                assunto = "Agendamento para "+pet.nome+" efetuado com sucesso!"
+                if len(servicos) == 1:
+                    servicos_agendados = "O serviço agendado foi: " + servicos[0].nome
+                else:
+                    
+                    servicos_agendados = "Os serviços agendados foram:\n\n"
+                    for servico in servicos:
+                        servicos_agendados += "- "+servico.nome
+                        servicos_agendados += "\n"
+                mensagem = "Olá, "+pet.id_usuario.nome+"!\n O agendamento para "+pet.nome+" foi feito com sucesso! Valor total: R$ "+str(valor_total)+".\n"+servicos_agendados+"\n\nObrigado!"
+                self.envio_email.send_email(email_usuario, assunto, mensagem)
           
             novo_agendamento.id_servico.set(servicos)
 
@@ -303,12 +325,20 @@ class AgendamentoView(APIView):
             if 'status' in request.data:
                 status = request.data['status']
 
+            print(status)
             dados = {
                 "status": request.data['status'],
             }
                         
             agendamento_atualizar_obj = Agendamento.objects.filter(id=int(request.data['id']))
             agendamento_atualizar_obj.update(**dados)
+            
+            if status == "cancelado" and agendamento_atualizar_obj.first().id_pet.id_usuario.receber_notificacoes:
+                email_usuario = agendamento_atualizar_obj.first().id_pet.id_usuario.email
+                assunto = 'O agendamento do seu pet foi cancelado!'
+                mensagem = 'Olá, '+agendamento_atualizar_obj.first().id_pet.id_usuario.nome+'!\n O agendamento para '+agendamento_atualizar_obj.first().id_pet.nome+' foi cancelado com sucesso. \nCaso tenha alguma dúvida, entre em contato conosco através dos nossos canais de atendimento.'
+
+                self.envio_email.send_email(email_usuario, assunto, mensagem)
 
             return Response({'mensagem': 'Agendamento atualizado com sucesso!', status: 'sucesso', 'detalhes': ''}, status=200)
           
